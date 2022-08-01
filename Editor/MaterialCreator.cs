@@ -6,12 +6,12 @@ using UnityEditor;
 using System.Linq;
 using UnityEngine.Rendering;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Sayama.MaterialCreatorWindow.Editor
 {
 	public class MaterialCreator : EditorWindow
 	{
-
 		private Shader ShaderRef;
 		private List<string> PropertiesName;
 		private List<string> TexturesPropertiesName;
@@ -40,6 +40,13 @@ namespace Sayama.MaterialCreatorWindow.Editor
 
 		//Current selected folder
 		private string SelectedFolder;
+		
+		// Custom search
+		private bool useCustomSearch = false;
+		private string regexSearch = "";
+		private RegexSearchMode regexSearchMode = RegexSearchMode.Split;
+		private RegexOptions regexOptions = RegexOptions.Multiline | RegexOptions.CultureInvariant;
+		private string testRegex = "";
 
 		// Add menu named "My Window" to the Window menu
 		[MenuItem("Tools/Material Creator")]
@@ -76,8 +83,20 @@ namespace Sayama.MaterialCreatorWindow.Editor
 			int shaderId = ShaderRef.GetInstanceID();
 			ShaderRef = EditorGUILayout.ObjectField(nameof(ShaderRef).AddSpacesToSentence(), ShaderRef, typeof(Shader), false, null) as Shader;
 			if(shaderId != ShaderRef.GetInstanceID()) UpdateShaderProperties();
-			
-			Suffix = EditorGUILayout.TextField(nameof(Suffix), Suffix);
+
+			useCustomSearch = EditorGUILayout.Toggle("Use a RegeXP for searching", useCustomSearch);
+			if (useCustomSearch)
+			{
+				EditorGUILayout.LabelField("Regex");
+				regexSearch = EditorGUILayout.TextArea(regexSearch);
+				EditorGUILayout.LabelField("Test");
+				testRegex = EditorGUILayout.TextArea(testRegex);
+				var matches = Regex.Matches(testRegex, regexSearch);
+			}
+			else
+			{
+				Suffix = EditorGUILayout.TextField(nameof(Suffix), Suffix);
+			}
 
 			SetMaterialsInSubFolders = EditorGUILayout.Toggle(nameof(SetMaterialsInSubFolders).AddSpacesToSentence(), SetMaterialsInSubFolders);
 

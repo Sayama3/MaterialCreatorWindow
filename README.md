@@ -1,7 +1,7 @@
 # Material Creator Window
 ## Overview
 A small tool to transform textures into materials
-(as long as they respect the format [ProjectName/ModelName]_[MaterialName]_[TextureTypeName] example: elevator5_Bac_Height)
+(as long as they respect the format `[ProjectName/ModelName]_[MaterialName]_[TextureTypeName]` example: `elevator5_Bac_Height`)
 
 And there is no documentation yet but with time it will come (and better versions too).
 

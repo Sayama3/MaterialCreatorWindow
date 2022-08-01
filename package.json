@@ -1,0 +1,11 @@
+{
+  "name": "io.sayama.materialcreatorwindow",
+  "version": "1.2.0",
+  "displayName": "Material Creator Window",
+  "description": "A unity package that allow to bulk create materials from textures",
+  "keywords": [],
+  "author": {
+    "name": "Sayama3"
+  },
+  "type": "tool"
+}
